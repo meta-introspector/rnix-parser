@@ -59,7 +59,30 @@
         };
 
         packages.rnix-parser = pkgs.rnix-parser;
+
+        packages.nix-inspector = pkgs.stdenv.mkDerivation {
+          pname = "nix-inspector";
+          version = (builtins.fromTOML (builtins.readFile ./Cargo.toml)).package.version;
+          src = pkgs.lib.cleanSource ./.;
+          nativeBuildInputs = with pkgs; [ rustc cargo ];
+
+          buildPhase = ''
+            cargo build --release --bin nix-inspector
+          '';
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp target/release/nix-inspector $out/bin/
+          '';
+        };
+
         defaultPackage = packages.rnix-parser;
+
+        apps.nix-inspector = {
+          type = "app";
+          program = "${packages.nix-inspector}/bin/nix-inspector";
+        };
+        defaultApp = apps.nix-inspector;
       }
     );
 }

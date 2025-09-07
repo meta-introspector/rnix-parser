@@ -8,6 +8,12 @@ readme = "README.md"
 repository = "https://github.com/nix-community/rnix-parser"
 version = "0.12.0"
 
+# The nix-inspector tool turns nix inside out.
+# It parses a Nix file and displays its internal structure.
+[[bin]]
+name = "nix-inspector"
+path = "src/bin/nix-inspector.rs"
+
 [[bench]]
 harness = false
 name = "all-packages"
