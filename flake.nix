@@ -2,9 +2,9 @@
   description = "Rust-based parser for nix files";
 
   inputs = {
-    utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    import-cargo.url = "github:edolstra/import-cargo";
+    utils.url = "github:meta-introspector/flake-utils?ref=feature/CRQ-016-nixify";
+    nixpkgs.url = "github:meta-introspector/nixpkgs?ref=feature/CRQ-016-nixify";
+    import-cargo.url = "github:meta-introspector/import-cargo?ref=feature/CRQ-016-nixify";
   };
 
   # first comment
