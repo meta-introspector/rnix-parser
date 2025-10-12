@@ -11,18 +11,19 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        dumpAstExecutable = "${rnix-parser.packages.${system}.default}/bin/dump-ast";
+        dumpAstExecutable = "${rnix-parser.packages.${system}.rnix-parser}/bin/dump-ast";
         nixFileToAnalyze = ../../flake.nix; # Analyze rnix-parser's own flake.nix
       in
-      {
+      rec {
         packages.dumpRnixAst = pkgs.runCommand "rnix-ast-dump"
           {
             nativeBuildInputs = [ pkgs.bash ];
-            buildInputs = [ rnix-parser.packages.${system}.default ]; # Ensure dump-ast is in PATH
+            buildInputs = [ rnix-parser.packages.${system}.rnix-parser ]; # Ensure dump-ast is in PATH
           } ''
           mkdir -p $out
           ${dumpAstExecutable} "${nixFileToAnalyze}" > "$out/rnix-flake-ast.json"
         '';
+        defaultPackage = packages.dumpRnixAst;
       }
     );
 }
