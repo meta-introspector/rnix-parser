@@ -30,6 +30,7 @@
 
           buildPhase = ''
             cargo build ${flags}
+            cargo build --release --example dump-ast --target ${target}
             cargo doc ${flags}
           '';
 
@@ -40,10 +41,13 @@
 
           installPhase = ''
             mkdir -p $out/lib
+            mkdir -p $out/bin
             mkdir -p $doc/share/doc/rnix
 
             cp -r ./target/${target}/doc $doc/share/doc/rnix
             cp ./target/${target}/release/librnix.rlib $out/lib/
+            cp ./target/${target}/release/rnix-parser $out/bin/
+            cp ./target/${target}/release/examples/dump-ast $out/bin/
           '';
         };
       };
