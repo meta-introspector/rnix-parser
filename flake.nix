@@ -46,7 +46,6 @@
 
             cp -r ./target/${target}/doc $doc/share/doc/rnix
             cp ./target/${target}/release/librnix.rlib $out/lib/
-            cp ./target/${target}/release/rnix-parser $out/bin/
             cp ./target/${target}/release/examples/dump-ast $out/bin/
           '';
         };
