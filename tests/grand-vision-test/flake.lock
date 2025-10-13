@@ -74,11 +74,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1758426618,
-        "narHash": "sha256-jpF4Xm7dYe4Iwt87O6zPjxfPuxneJDoFXSdubwlS++c=",
+        "lastModified": 1760302422,
+        "narHash": "sha256-YRi6nP4ytvlpynJAPQPSwkOBxghMc9YYIMZ9Lc165W0=",
         "owner": "meta-introspector",
         "repo": "rnix-parser",
-        "rev": "a9b2afe235aac649138020c7ee5e1354b9c4ec8d",
+        "rev": "d6b98730837a5c4d81143f2f564458e2293f9f86",
         "type": "github"
       },
       "original": {
