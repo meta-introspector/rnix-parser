@@ -1,1 +1,1 @@
-1 + 1 |> builtins.toString
+1 + 1 | > builtins.toString

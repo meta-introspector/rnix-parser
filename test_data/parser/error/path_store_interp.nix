@@ -1,1 +1,1 @@
-<nixpkgs/${foo}/bar>
+<nixpkgs/${foo}/bar >

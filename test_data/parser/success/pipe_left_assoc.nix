@@ -1,1 +1,1 @@
-foo <| builtins.toString <| 1
+foo < | builtins.toString <| 1

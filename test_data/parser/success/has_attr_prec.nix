@@ -1,1 +1,1 @@
-a?"b"&&true
+a?"b" && true

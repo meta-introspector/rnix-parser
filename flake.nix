@@ -11,45 +11,48 @@
   # second comment
   outputs = { self, nixpkgs, utils, import-cargo }:
     {
-      overlay = final: prev: let
-        target = final.rust.toRustTarget final.stdenv.hostPlatform;
-        flags = "--release --offline --target ${target}";
-        inherit (import-cargo.builders) importCargo;
-      in {
-        rnix-parser = final.stdenv.mkDerivation {
-          pname = "rnix-parser";
-          version = (builtins.fromTOML (builtins.readFile ./Cargo.toml)).package.version;
-          src = final.lib.cleanSource ./.;
-          nativeBuildInputs = with final; [
-            rustc cargo
-            (importCargo { lockFile = ./Cargo.lock; inherit (final) pkgs; }).cargoHome
-          ];
+      overlay = final: prev:
+        let
+          target = final.rust.toRustTarget final.stdenv.hostPlatform;
+          flags = "--release --offline --target ${target}";
+          inherit (import-cargo.builders) importCargo;
+        in
+        {
+          rnix-parser = final.stdenv.mkDerivation {
+            pname = "rnix-parser";
+            version = (builtins.fromTOML (builtins.readFile ./Cargo.toml)).package.version;
+            src = final.lib.cleanSource ./.;
+            nativeBuildInputs = with final; [
+              rustc
+              cargo
+              (importCargo { lockFile = ./Cargo.lock; inherit (final) pkgs; }).cargoHome
+            ];
 
-          outputs = [ "out" "doc" ];
-          doCheck = true;
+            outputs = [ "out" "doc" ];
+            doCheck = true;
 
-          buildPhase = ''
-            cargo build ${flags}
-            cargo build --release --example dump-ast --target ${target}
-            cargo doc ${flags}
-          '';
+            buildPhase = ''
+              cargo build ${flags}
+              cargo build --release --example dump-ast --target ${target}
+              cargo doc ${flags}
+            '';
 
-          checkPhase = ''
-            cargo test ${flags}
-            cargo bench
-          '';
+            checkPhase = ''
+              cargo test ${flags}
+              cargo bench
+            '';
 
-          installPhase = ''
-            mkdir -p $out/lib
-            mkdir -p $out/bin
-            mkdir -p $doc/share/doc/rnix
+            installPhase = ''
+              mkdir -p $out/lib
+              mkdir -p $out/bin
+              mkdir -p $doc/share/doc/rnix
 
-            cp -r ./target/${target}/doc $doc/share/doc/rnix
-            cp ./target/${target}/release/librnix.rlib $out/lib/
-            cp ./target/${target}/release/examples/dump-ast $out/bin/
-          '';
+              cp -r ./target/${target}/doc $doc/share/doc/rnix
+              cp ./target/${target}/release/librnix.rlib $out/lib/
+              cp ./target/${target}/release/examples/dump-ast $out/bin/
+            '';
+          };
         };
-      };
     }
     // utils.lib.eachDefaultSystem (system:
       let

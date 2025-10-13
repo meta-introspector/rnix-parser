@@ -1,1 +1,1 @@
-rec{test=1;}
+rec{ test = 1; }

@@ -1,6 +1,7 @@
 let
   world = "World";
-in {
+in
+{
   string = "Hello ${world}!";
   multiline = ''
     The set's x value is: ${

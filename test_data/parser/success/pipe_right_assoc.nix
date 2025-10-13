@@ -1,1 +1,1 @@
-1 |> builtins.toString |> foo
+1 | > builtins.toString |> foo

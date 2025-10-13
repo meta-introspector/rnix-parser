@@ -1,1 +1,1 @@
-let{a=42;body=a;}
+let{a = 42;body = a;}

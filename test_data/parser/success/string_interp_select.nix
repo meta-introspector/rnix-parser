@@ -1,1 +1,1 @@
- "Hello, ${ { world = "World"; }.world }!" 
+"Hello, ${ { world = "World"; }.world }!" 
